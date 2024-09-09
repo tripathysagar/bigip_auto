@@ -6,7 +6,7 @@ def get_requirements():
         return [line.strip() for line in f if line.strip()]
 
 setup(
-    name="bigip_project",
+    name="bigip",
     version="0.1",
     packages=find_packages(),
     include_package_data=True,  # Include non-Python files like images if necessary
