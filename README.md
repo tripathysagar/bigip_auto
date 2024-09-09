@@ -1,6 +1,6 @@
 # bigip_auto
 
-This repository contains the `bigip_auto` tool, which provides automated functionality for BigIP operations. 
+This repository contains the `bigip` tool, which provides automated functionality for BigIP authentication. 
 
 
 ## Installation
@@ -26,7 +26,7 @@ Run: `bigip`
 ## Important Usage Notes
 
 Password Handling: The program is designed to securely handle your password. Instead of typing out your password multiple times, you only need to enter it once. The program will then automatically input the password when required during operations.
-Do Not Interfere During Operation:
+Do Not During Operation:
 
 Once the program starts running, do not move the mouse or type anything.
 The program uses pyautogui to take screenshots and determine the locations for performing operations.
@@ -36,6 +36,6 @@ Any interference could disrupt the automated process and lead to errors.
 Screen Interaction: This tool interacts directly with your screen to perform operations. Ensure that the relevant windows are visible and not obstructed.
 ## Support
 
-For issues or questions, open an issue or contact the maintainer.
+For issues or questions, open an issue🫡.
 
 
