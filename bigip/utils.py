@@ -2,6 +2,14 @@ import getpass
 import time
 import subprocess
 from pathlib import Path
+import os 
+
+def ensure_debug_directory():
+    """
+    Ensures that the debug_img directory exists.
+    """
+    debug_dir = get_abs_path('debug_img')
+    os.makedirs(debug_dir, exist_ok=True)
 
 get_abs_path = lambda rel_path: str((Path(__file__).resolve().parent / rel_path).resolve())
 
