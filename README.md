@@ -1,0 +1,39 @@
+# bigip_auto
+
+This repository contains the `bigip_auto` tool, which provides automated functionality for BigIP operations. 
+
+
+## Installation
+
+1. Clone repo: `git clone https://github.com/tripathysagar/bigip_auto.git`
+2. Enter directory: `cd bigip_auto`
+3. Install package: `pip install .`
+
+## Configuration
+
+### macOS Accessibility Permissions
+
+1. System Preferences > Security & Privacy > Privacy > Accessibility
+2. Unlock, then check box for app running the script (e.g., Terminal)
+3. Restart the application
+
+## Usage
+
+Run: `bigip`
+
+## Important Usage Notes
+
+Password Handling: The program is designed to securely handle your password. Instead of typing out your password multiple times, you only need to enter it once. The program will then automatically input the password when required during operations.
+Do Not Interfere During Operation:
+
+Once the program starts running, do not move the mouse or type anything.
+The program uses pyautogui to take screenshots and determine the locations for performing operations.
+Any interference could disrupt the automated process and lead to errors.
+
+
+Screen Interaction: This tool interacts directly with your screen to perform operations. Ensure that the relevant windows are visible and not obstructed.
+## Support
+
+For issues or questions, open an issue or contact the maintainer.
+
+
