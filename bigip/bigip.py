@@ -20,7 +20,9 @@ def big(debug=False, sleep_time=2):
     - Locates the "Connect" button, clicks it, and enters the user's credentials.
     - Handles the second password prompt if necessary.
     """
-    if debug: print(f"{debug=} 🔬 ")
+    if debug: 
+        ensure_debug_directory()
+        print(f"{debug=} 🔬 ")
     try:
         user.get_password()
     
