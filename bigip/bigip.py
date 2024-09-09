@@ -1,4 +1,4 @@
-
+import traceback
 import fire
 
 from .utils import *
@@ -21,52 +21,57 @@ def big(debug=False, sleep_time=2):
     - Handles the second password prompt if necessary.
     """
     if debug: print(f"{debug=} 🔬 ")
+    try:
+        user.get_password()
     
-    user.get_password()
-
-    app = MacOSApplicationManager('BIG-IP Edge Client')
-    app.open()
-
-    print(f"{app.app_name} is running...")
-    sleep(5) #  let the app start up
-
-    take_screen_shot(debug)
-
-    #search connect image
-    image_path = get_abs_path('ref_image/1/1.png')
-    loc = search_image2center(image_path)
-
-    loc = get_gui_loc(loc) # get the scaled location wrt pyautogui
+        app = MacOSApplicationManager('BIG-IP Edge Client')
+        app.open()
     
-    if debug:print(f"Connect button location wrt pyautogui @{loc=}")
-
-    if loc:
-        # move to the connect button, click and wait for password promt
-        pyautogui.moveTo(loc[0], loc[1], 0.01 )
-        pyautogui.click()
-
-        sleep(sleep_time) # wait for it to appear
+        print(f"{app.app_name} is running...")
+        sleep(5) #  let the app start up
+    
         take_screen_shot(debug)
+    
+        #search connect image
+        image_path = get_abs_path('ref_image/1/1.png')
+        loc = search_image2center(image_path)
+    
+        loc = get_gui_loc(loc) # get the scaled location wrt pyautogui
         
-
-        #enter username, tab, pwd and enter
-        enter_keys(user.username)
-        tab()
-        enter_keys(user.password)
-        enter()
-
-        #wait for 2nd time pwd entering
-        sleep(sleep_time)
-        take_screen_shot(debug)
-        
-
-        enter_keys(user.password)
-        enter()
-        sleep(sleep_time)
-        take_screen_shot(debug)
-        
-    else:
-        print("could not find the connect button😔!!! \ntry some debug 🤷‍♂️.")
+        if debug:print(f"Connect button location wrt pyautogui @{loc=}")
+    
+        if loc:
+            # move to the connect button, click and wait for password promt
+            pyautogui.moveTo(loc[0], loc[1], 0.01 )
+            pyautogui.click()
+    
+            sleep(sleep_time) # wait for it to appear
+            take_screen_shot(debug)
+            
+    
+            #enter username, tab, pwd and enter
+            enter_keys(user.username)
+            tab()
+            enter_keys(user.password)
+            enter()
+    
+            #wait for 2nd time pwd entering
+            sleep(sleep_time)
+            take_screen_shot(debug)
+            
+    
+            enter_keys(user.password)
+            enter()
+            sleep(sleep_time)
+            take_screen_shot(debug)
+            
+        else:
+            print("could not find the connect button😔!!! \ntry some debug 🤷‍♂️.")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        if debug:
+            print("Traceback:")
+            traceback.print_exc()
 
 def main():
     fire.Fire(big)
