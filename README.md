@@ -5,9 +5,11 @@ This repository contains the `bigip_auto` tool, which provides automated functio
 
 ## Installation
 
-1. Clone repo: `git clone https://github.com/tripathysagar/bigip_auto.git`
-2. Enter directory: `cd bigip_auto`
-3. Install package: `pip install .`
+```
+git clone https://github.com/tripathysagar/bigip_auto.git
+cd bigip_auto
+pip install .
+```
 
 ## Configuration
 
