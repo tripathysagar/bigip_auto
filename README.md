@@ -10,6 +10,8 @@ git clone https://github.com/tripathysagar/bigip_auto.git
 cd bigip_auto
 pip install .
 ```
+### Usage
+Run: `bigip`
 
 ## Configuration
 
@@ -19,9 +21,7 @@ pip install .
 2. Unlock, then check box for app running the script (e.g., Terminal)
 3. Restart the application
 
-## Usage
 
-Run: `bigip`
 
 ## Important Usage Notes
 
