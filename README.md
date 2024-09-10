@@ -8,7 +8,7 @@ This repository contains the `bigip` tool, which provides automated functionalit
 ```
 git clone https://github.com/tripathysagar/bigip_auto.git
 cd bigip_auto
-pip install .
+pip install -e .
 ```
 ### Usage
 Run: `bigip`
