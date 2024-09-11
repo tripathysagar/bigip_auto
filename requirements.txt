@@ -1,2 +1,4 @@
 fire==0.6.0
 pyautogui==0.9.54
+PyScreeze==1.0.1
+pillow==10.4.0
