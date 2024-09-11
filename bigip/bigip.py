@@ -6,11 +6,12 @@ from .bigip_pyautogui import *
 
 take_screen_shot = lambda debug: screen_shot()  if debug else None 
 
-def big(debug=False, sleep_time=2):
+def big(admin=False, debug=False, sleep_time=2):
     """
     Automates the BIG-IP Edge Client opening and entering credentials.
     
     Args:
+    --admin (bool): Whether to run the application with administrator privileges.
     --debug (bool): Enables saving screenshots at various steps for debugging.
     --sleep_time (int): sleep execution for n swc during execution
 
@@ -50,16 +51,17 @@ def big(debug=False, sleep_time=2):
             sleep(sleep_time) # wait for it to appear
             take_screen_shot(debug)
             
+            if admin:
     
-            #enter username, tab, pwd and enter
-            enter_keys(user.username)
-            tab()
-            enter_keys(user.password)
-            enter()
+                #enter username, tab, pwd and enter
+                enter_keys(user.username)
+                tab()
+                enter_keys(user.password)
+                enter()
     
-            #wait for 2nd time pwd entering
-            sleep(sleep_time)
-            take_screen_shot(debug)
+                #wait for 2nd time pwd entering
+                sleep(sleep_time)
+                take_screen_shot(debug)
             
     
             enter_keys(user.password)
