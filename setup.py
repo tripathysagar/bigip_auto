@@ -17,6 +17,10 @@ setup(
             'bigip=bigip.bigip:main',  # Alias 'bigip' will run the 'big' function from bigip.py
         ],
     },
+    package_data={
+       # If you want to include specific directories and file types (e.g., PNG files)
+        'bigip': ['ref_image/**/*.png'],
+    },
 )
 
 
