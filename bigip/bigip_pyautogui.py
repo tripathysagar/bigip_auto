@@ -1,66 +1,84 @@
-import pyautogui
-import sys
 import traceback
+import fire
 
-from .utils import get_abs_path
+from .utils import *
+from .bigip_pyautogui import *
 
-def search_image2center(image_path):
+take_screen_shot = lambda debug: screen_shot()  if debug else None 
+
+def big(admin=False, debug=False, sleep_time=2):
     """
-    Searches for an image on the screen within a given timeout period.
+    Automates the BIG-IP Edge Client opening and entering credentials.
     
-    Parameters:
-    - image_path (str): The path to the image file to search for on the screen.
-    
-    Returns:
-    - The center coordinates of the found image, or None if the image was not found.
+    Args:
+    --debug (bool): Enables saving screenshots at various steps for debugging.
+    --sleep_time (int): sleep execution for n swc during execution
+
+    Process:
+    - Opens the BIG-IP Edge Client.
+    - Takes screenshots if debug is enabled.
+    - Locates the "Connect" button, clicks it, and enters the user's credentials.
+    - Handles the second password prompt if necessary.
     """
-    
+    if debug: 
+        ensure_debug_directory()
+        print(f"{debug=} 🔬 ")
     try:
-        image_path = get_abs_path(image_path)
-        loc = pyautogui.locateOnScreen(image_path, grayscale=True)
-        if loc:
-            loc = (loc.left+loc.width/2, loc.top+loc.height/2)
-            #print(f"Image found at: {loc=}")
-            return loc
+        user.get_password()
+    
+        app = MacOSApplicationManager('BIG-IP Edge Client')
+        app.open()
+    
+        print(f"{app.app_name} is running...")
+        sleep(5) #  let the app start up
+    
+        take_screen_shot(debug)
+    
+        #search connect image
+        loc = search_image2center('ref_image/1/1.png')
+    
+        loc = get_gui_loc(loc) # get the scaled location wrt pyautogui
         
-    except pyautogui.ImageNotFoundException as e:
-        print( f"{image_path=} is not found {screen_shot()}" )
+        if debug:print(f"Connect button location wrt pyautogui @{loc=}")
+    
+        if loc:
+            # move to the connect button, click and wait for password promt
+            pyautogui.moveTo(loc[0], loc[1], 0.01 )
+            pyautogui.click()
+    
+            sleep(sleep_time) # wait for it to appear
+            
+
+            take_screen_shot(debug)
+            
+            if admin:
+                # serach 
+                #enter username, tab, pwd and enter
+                enter_keys(user.username)
+                tab()
+                enter_keys(user.password)
+                enter()
+        
+                #wait for 2nd time pwd entering
+                sleep(sleep_time)
+                take_screen_shot(debug)
+            
+    
+            enter_keys(user.password)
+            enter()
+            sleep(sleep_time)
+            take_screen_shot(debug)
+            
+        else:
+            print("could not find the connect button😔!!! \ntry some debug 🤷‍♂️.")
     except Exception as e:
-        traceback.print_exc()
-        sys.exit(-1)
-    
+        print(f"An error occurred: {str(e)}")
+        if debug:
+            print("Traceback:")
+            traceback.print_exc()
 
+def main():
+    fire.Fire(big)
 
-def enter_keys(text, interval=0.01):
-    """
-    Simulates typing the given text with a specified delay between key presses.
-
-    Parameters:
-    text (str): The text to type.
-    interval (float): Delay between key presses in seconds.
-    """
-    # Add a small delay to switch to the desired window
-    #sleep()
-    
-    # Type the text
-    pyautogui.write(text, interval=interval)
-
-def screen_shot():
-    global photo_count  # To modify the global photo_count variable
-    photo_count += 1
-
-    fn = get_abs_path(f'debug_img/my_screenshot_{photo_count}.png')
-    print(f"{photo_count=} @ {fn}")
-    # Save the screenshot with the updated count
-    pyautogui.screenshot().save(fn)
-
-tab = lambda : pyautogui.press('tab')
-enter = lambda : pyautogui.press('enter')
-
-
-screenshot_size =  pyautogui.screenshot().size
-photo_count = 0
-
-gui_size = pyautogui.size()
-
-get_gui_loc = lambda x  : (x[0]/screenshot_size[0] * gui_size.width, x[1]/screenshot_size[1] * gui_size.height)
+if __name__ == '__main__':
+    main()
