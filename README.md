@@ -13,6 +13,8 @@ pip install -e .
 ### Usage
 Run: `bigip`
 
+include `-a T or --admin True` if the ![admin pop up](./bigip/ref_image/2/admin.png) comes up in your device
+
 ## Configuration
 
 ### macOS Accessibility Permissions
