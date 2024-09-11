@@ -1,5 +1,6 @@
 import pyautogui
 import sys
+import traceback
 
 from .utils import get_abs_path
 
@@ -15,13 +16,17 @@ def search_image2center(image_path):
     """
     
     try:
-        loc = pyautogui.locateOnScreen(image_path)
+        image_path = get_abs_path(image_path)
+        loc = pyautogui.locateOnScreen(image_path, grayscale=True)
         if loc:
             loc = (loc.left+loc.width/2, loc.top+loc.height/2)
             #print(f"Image found at: {loc=}")
             return loc
+        
+    except pyautogui.ImageNotFoundException as e:
+        print( f"{image_path=} is not found {screen_shot()}" )
     except Exception as e:
-        print(e)
+        traceback.print_exc()
         sys.exit(-1)
     
 
