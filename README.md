@@ -4,6 +4,7 @@ This repository contains the `bigip` tool, which provides automated functionalit
 
 
 ## Installation
+Create and activate virtual env
 
 ```
 git clone https://github.com/tripathysagar/bigip_auto.git
