@@ -13,7 +13,8 @@ pip install -e .
 ### Usage
 Run: `bigip`
 
-include `-a T or --admin True` if the ![admin pop up](./bigip/ref_image/2/admin.png) comes up in your device
+include `-a T or --admin True` if the <img src="./bigip/ref_image/2/admin.png" width="200" height="100" alt="admin pop up">
+ comes up in your device
 
 ## Configuration
 
